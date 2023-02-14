@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>annonce</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="add-annonce">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <ion-button (click)="SignOut()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/user-profile">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  
+  <!--ION SEGMENT-->
+  <ion-toolbar>
+    <ion-segment
+      (ionChange)="segmentChanged($event)"
+      [(ngModel)]="segment"
+      color="primary"
+    >
+       <!--Segment du partie Home qui affiche le slide de tout les annonces lorsqu'on le clique-->
+      <ion-segment-button value="0">
+        <ion-label>Annonce voiture</ion-label>
+        <ion-icon name="car"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        <ion-label>Annonce Informatique</ion-label>
+        <ion-icon name="desktop-outline"></ion-icon>
+      </ion-segment-button>
+     <!--Segment du partie qui affiche le slide des annonces du utlisateur connecté lorsqu'on le clique-->
+    </ion-segment>
+  </ion-toolbar>
+  <!--ION SEGMENT-->
+  <div class="wave-container">
+    <div >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#3880ff" fill-opacity="1" d="M0,64L120,101.3C240,139,480,213,720,202.7C960,192,1200,96,1320,48L1440,0L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>
+      </div>
+     <!-- Slide qui affiche tout les annonces-->
+  <ion-slides #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
+
+    <ion-slide>
+      <ion-grid>
+        <ion-row>
+          <ion-col sizeSm="6" size="4" sizeMd="4" sizeLg="3" sizeXl="2"  *ngFor="let annonce of listAnnonces">
+                <ion-card style="background: url({{annonce.imageUrl}});" [routerLink]="['/annonces/annonce-details/', annonce.id]">
+                  
+                  <ion-card-header>
+                   
+                    <ion-avatar>
+                      <img
+                      src="{{user?.imageUrl}}"
+                      />
+                    </ion-avatar>
+                    
+                  </ion-card-header>
+
+                  <ion-card-content style="background: #cdebffd1;">
+                   
+                    
+            
+
+                  <ion-card-title>{{annonce.title}}</ion-card-title>
+                    
+                    <p maxlength="5">{{annonce.description |slice:0:20}}..</p>
+                   </ion-card-content>
+                </ion-card>
+              
+          </ion-col>
+        </ion-row>
+      </ion-grid></ion-slide
+    >
+    <!--Second slide my annonces-->
+    <ion-slide>
+      
+            </ion-slide>
+  </ion-slides>
+  </div>
+</ion-content>
